@@ -39,11 +39,14 @@ pipeline
              sh 'cp -R /root/.jenkins/workspace/task/target/* /opt/apache-tomcat-8.5.3/webapps'
          }
       }
-       def nextVersionFromGit(scope) {
+       def nextVersionFromGit(scope) 
+        {
     def latestVersion = sh(returnStdout: true, script: 'git describe --tags --abbrev=0 --match *.*.* 2> /dev/null || echo 0.0.0').trim()
-    def (major, minor, patch) = latestVersion.tokenize('.').collect { it.toInteger() }
+    def (major, minor, patch) = latestVersion.tokenize('.').collect { it.toInteger() 
+         }
     def nextVersion
-    switch (scope) {
+    switch (scope) 
+            {
         case 'major':
             nextVersion = "${major + 1}.0.0"
             break
