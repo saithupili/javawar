@@ -38,8 +38,8 @@ pipeline
          {
              sh 'cp -R /root/.jenkins/workspace/task/target/* /opt/apache-tomcat-8.5.3/webapps'
          }
+      }
      }
-       
      post 
     {
         always 
