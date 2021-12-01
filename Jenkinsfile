@@ -25,6 +25,13 @@ pipeline
              sh 'find / -name *.war'
          }
      }
+        stage ('increase versions')
+        {
+            steps
+            {
+             sh 'mvn -U versions:set -DnewVersion=${version}'
+        }
+    }
      stage ('deploy')
      {
          steps
@@ -32,13 +39,7 @@ pipeline
              sh 'cp -R /root/.jenkins/workspace/task/target/* /opt/apache-tomcat-8.5.3/webapps'
          }
      }
-       stage ('increase versions')
-        {
-            steps
-            {
-             sh 'mvn -U versions:set -DnewVersion=${version}'
-        }
-    }
+       
   
         stage('Slack it'){
             steps {
