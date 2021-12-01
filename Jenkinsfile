@@ -33,5 +33,13 @@ pipeline
              sh 'cp -R /root/.jenkins/workspace/task/target/* /opt/apache-tomcat-8.5.3/webapps'
          }
      }
+        post 
+        {
+        always 
+         {
+            slackSend channel: '#developer',                
+             message: "Result : ${currentBuild.currentResult}\n Job : ${env.JOB_NAME}\n buildno : ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
+        }
+    }
    }
 }
