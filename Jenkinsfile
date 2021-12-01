@@ -11,7 +11,7 @@ pipeline
          {
              sh 'mvn clean install'
          }
-     }  
+     }
      stage ('test')
      {
          steps
@@ -19,7 +19,7 @@ pipeline
              sh 'mvn test'
          }
      }
-        stage ('find my binary')
+     stage ('find my binary')
      {
          steps
          {
@@ -30,16 +30,21 @@ pipeline
      {
          steps
          {
-             sh 'cp -R /root/.jenkins/workspace/task/target/* /opt/apache-tomcat-8.5.3/webapps'
+             sh 'cp -R /root/.jenkins/workspace/vikas/target/* /opt/apache-tomcat-8.5.3/webapps'
          }
      }
-        post 
-        {
-        always 
-         {
+  
+        stage('Slack it'){
+            steps {
+                slackSend channel: '#developer', 
+                          message: 'Hello, world'
+            }
+        } 
+    }
+     post {
+        always {
             slackSend channel: '#developer',                
-             message: "Result : ${currentBuild.currentResult}\n Job : ${env.JOB_NAME}\n buildno : ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
+                message: "Result : ${currentBuild.currentResult}\n Job : ${env.JOB_NAME}\n buildno : ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
         }
     }
-   }
 }
