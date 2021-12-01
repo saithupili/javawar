@@ -1,7 +1,15 @@
 pipeline
 {
     agent any 
-    
+    stages 
+    { 
+        stage ('increase versions')
+        {
+            steps
+            {
+             sh 'mvn -U versions:set -DnewVersion=${version}'
+        }
+    }
     stages
     {
      
