@@ -1,15 +1,6 @@
 pipeline
 {
-    agent any 
-    stages 
-    { 
-        stage ('increase versions')
-        {
-            steps
-            {
-             sh 'mvn -U versions:set -DnewVersion=${version}'
-        }
-    }
+    agent any
     stages
     {
      
@@ -41,6 +32,15 @@ pipeline
              sh 'cp -R /root/.jenkins/workspace/task/target/* /opt/apache-tomcat-8.5.3/webapps'
          }
      }
+        stages 
+    { 
+        stage ('increase versions')
+        {
+            steps
+            {
+             sh 'mvn -U versions:set -DnewVersion=${version}'
+        }
+    }
   
         stage('Slack it'){
             steps {
